@@ -7,8 +7,6 @@ BOARD        ?= NRF51_BOARD
 VERBOSE      ?= 0
 
 
-
-
 CPU := cortex-m0
 LINKER_SCRIPT := linker/gcc_nrf51_s130_32kb.ld
 
@@ -16,16 +14,16 @@ NRF5_SDK_PATH ?= C:/nrf/sdk/nrf_sdk_11_0
 COMPONENTS     = $(NRF5_SDK_PATH)/components
 TEMPLATE_PATH  = $(COMPONENTS)/toolchain/gcc
 
-#C_SOURCE_FILES   += $(COMPONENTS)/toolchain/system_nrf51.c
-#ASM_SOURCE_FILES += $(COMPONENTS)/toolchain/gcc/gcc_startup_nrf51.s
+# C_SOURCE_FILES   += $(COMPONENTS)/toolchain/system_nrf51.c
+# ASM_SOURCE_FILES += $(COMPONENTS)/toolchain/gcc/gcc_startup_nrf51.s
 
 INC_PATHS += -I$(COMPONENTS)/softdevice/s130/headers
 INC_PATHS += -I$(COMPONENTS)/softdevice/s130/headers/nrf51
 
 SOFTDEVICE_PATH = $(COMPONENTS)/softdevice/s130/hex/s130_nrf51_2.0.0_softdevice.hex
 
-HEAP_SIZE = 1024
-STACK_SIZE = 1024
+HEAP_SIZE = 2048
+STACK_SIZE = 2048
 
 SERIAL_DEVICE ?= /dev/ttyCOM4  # FIXME Use proper matching for OSX compatiblity
 
@@ -156,7 +154,7 @@ CXXFLAGS += -fno-threadsafe-statics
 # Linker flags
 LDFLAGS += $(CFLAGS)
 LDFLAGS += -Llinker/ -T$(LINKER_SCRIPT) -Xlinker --gc-sections
-LDFLAGS += -Wl,-v,-warn-common,-t,-Map,"$(LISTING_DIRECTORY)/$(OUTPUT_FILENAME).map" --specs=nano.specs
+LDFLAGS += -Wl,-t,-Map,"$(LISTING_DIRECTORY)/$(OUTPUT_FILENAME).map" --specs=nano.specs
 
 # Assembler flags
 ASMFLAGS += $(CFLAGS) -x assembler-with-cpp -D__HEAP_SIZE=$(HEAP_SIZE) -D__STACK_SIZE=$(STACK_SIZE)

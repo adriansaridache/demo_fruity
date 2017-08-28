@@ -1,0 +1,4 @@
+GNU_INSTALL_ROOT := C:\Program Files (x86)\GNU Tools ARM Embedded\4.9 2015q1\arm-none-eabi\bin
+GNU_VERSION := 4.9.1
+GNU_PREFIX := arm-none-eabi
+

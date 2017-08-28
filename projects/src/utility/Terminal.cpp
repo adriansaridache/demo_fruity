@@ -29,12 +29,12 @@ extern "C"
 {
 #include "nrf.h"
 
-//#ifdef USE_UART
+#ifdef USE_UART
 #include "app_util_platform.h"
 #include "nrf_uart.h"
 #include "nrf_gpio.h"
 #include "nrf_delay.h"
-//#endif
+#endif
 #ifdef USE_SEGGER_RTT
 #include "SEGGER_RTT.h"
 #endif

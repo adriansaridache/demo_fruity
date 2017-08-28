@@ -316,12 +316,12 @@ class Conf
 #define TRACE_BUFFER_SIZE 500
 
 //Define to enable terminal in-/output through UART
-//#define USE_UART
+#define USE_UART
 //Use the SEGGER RTT protocol for in and output
 //In J-Link RTT view, set line ending to CR and send input on enter, echo input to off
-#define USE_SEGGER_RTT
+//#define USE_SEGGER_RTT
 
-//#define USE_BUTTONS
+#define USE_BUTTONS
 
 #define EOL "\r\n"
 #define SEP "\r\n"
@@ -359,7 +359,7 @@ enum moduleID{
 	//Invalid Module: 0xFF is the flash memory default and is therefore invalid
 	INVALID_MODULE=255
 };
-//#error "my error"
+
 //Activate and deactivate modules by un-/commenting these defines
 #define ACTIVATE_ADVERTISING_MODULE
 #define ACTIVATE_SCANNING_MODULE

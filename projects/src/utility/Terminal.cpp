@@ -25,10 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Config.h>
 #include <Utility.h>
 
+
 extern "C"
 {
 #include "nrf.h"
-
+#include <stdarg.h>
 #ifdef USE_UART
 #include "app_util_platform.h"
 #include "nrf_uart.h"

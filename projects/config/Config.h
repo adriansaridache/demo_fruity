@@ -202,7 +202,7 @@ class Conf
 
 		//Set a default boardId for NRF51 and NRF52 in case no other data is available
 #if defined(NRF51)
-		u32 boardType = PCA_10031;
+		u32 boardType = PCA_10028;
 #elif defined(NRF52)
 		u32 boardType = PCA_10040;
 #else
@@ -316,18 +316,18 @@ class Conf
 #define TRACE_BUFFER_SIZE 500
 
 //Define to enable terminal in-/output through UART
-#define USE_UART
+//#define USE_UART
 //Use the SEGGER RTT protocol for in and output
 //In J-Link RTT view, set line ending to CR and send input on enter, echo input to off
-//#define USE_SEGGER_RTT
+#define USE_SEGGER_RTT
 
-#define USE_BUTTONS
+//#define USE_BUTTONS
 
 #define EOL "\r\n"
 #define SEP "\r\n"
 
 //If undefined, the final build will have no logging / Terminal functionality built in
-#define ENABLE_LOGGING
+//#define ENABLE_LOGGING
 
 
 /*############ SERVICES ################*/
@@ -366,8 +366,8 @@ enum moduleID{
 #define ACTIVATE_STATUS_REPORTER_MODULE
 //#define ACTIVATE_DFU_MODULE
 #define ACTIVATE_ENROLLMENT_MODULE
-#define ACTIVATE_IO_MODULE
-#define ACTIVATE_DEBUG_MODULE
+//#define ACTIVATE_IO_MODULE
+//#define ACTIVATE_DEBUG_MODULE
 
 /*############ Stuff for DFU ################*/
 //This is where the bootloader settings are saved

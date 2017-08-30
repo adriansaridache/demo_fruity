@@ -187,12 +187,6 @@ enum discoveryState
 	INVALID_STATE, BOOTUP, DISCOVERY, DISCOVERY_HIGH, DISCOVERY_LOW, DECIDING, HANDSHAKE, HANDSHAKE_TIMEOUT, CONNECTING, BACK_OFF, DISCOVERY_OFF
 };
 
-//Led mode that defines what the LED does (mainly for debugging)
-enum ledMode
-{
-	LED_MODE_OFF, LED_MODE_ON, LED_MODE_CONNECTIONS, LED_MODE_RADIO, LED_MODE_CLUSTERING, LED_MODE_ASSET
-};
-
 /*########## Alignment ###########*/
 //In order to send data packets across the mesh in an efficiant manner
 //we have to keep the size as small as possible which is why all network structures

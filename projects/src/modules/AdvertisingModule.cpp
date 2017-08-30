@@ -216,12 +216,8 @@ void AdvertisingModule::ButtonHandler(u8 buttonId, u32 holdTimeDs)
 {
 	//Put beacon into Asset mode, it will broadcast it's nodeId as an assetId
 	if(buttonId == 0 && holdTimeDs > SEC_TO_DS(3)){
-		logt("ADVMOD", "Asset mode activated");
+//		logt("ADVMOD", "Asset mode activated");
 		assetMode = 1;
-		LedRed->On();
-		LedGreen->On();
-		LedBlue->On();
-		node->currentLedMode = ledMode::LED_MODE_ASSET;
 		cm->ForceDisconnectOtherConnections(NULL);
 	}
 }

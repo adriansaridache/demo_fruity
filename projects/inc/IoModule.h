@@ -73,13 +73,6 @@ class IoModule: public Module
 		#pragma pack(push)
 		#pragma pack(1)
 
-			#define SIZEOF_IO_MODULE_SET_LED_MESSAGE 1
-			typedef struct
-			{
-				u8 ledMode;
-
-			}IoModuleSetLedMessage;
-
 		#pragma pack(pop)
 		//####### Module messages end
 

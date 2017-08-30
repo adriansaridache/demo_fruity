@@ -43,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <ConnectionManager.h>
 #include <Terminal.h>
 #include <Storage.h>
-#include <ButtonListener.h>
 
 extern "C"{
 #include <ble.h>
@@ -55,15 +54,11 @@ class Node;
 
 #define MODULE_NAME_MAX_SIZE 10
 
-class Module:
-		public StorageEventListener,
-		public TerminalCommandListener,
-		public ButtonListener
+class Module: public StorageEventListener, public TerminalCommandListener
 {
 	private:
 
-
-protected:
+    protected:
 		Node* node;
 		ConnectionManager* cm;
 		u8 moduleId;

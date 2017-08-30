@@ -65,7 +65,7 @@ void Utility::GetVersionStringFromInt(u32 version, char* outputBuffer)
 	u16 minor = (version - 10000000 * major) / 10000;
 	u16 patch = (version - 10000000 * major - 10000 * minor);
 
-	sprintf(outputBuffer, "%u.%u.%u", major, minor, patch);
+//	sprintf(outputBuffer, "%u.%u.%u", major, minor, patch);
 
 }
 /*

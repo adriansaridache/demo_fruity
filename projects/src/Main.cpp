@@ -30,11 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <GATTController.h>
 #include <Logger.h>
 #include <Testing.h>
-#include <LedWrapper.h>
 #include <Module.h>
 #include <Utility.h>
 #include <types.h>
-#include <TestBattery.h>
 #include <Config.h>
 #include <NewStorage.h>
 
@@ -77,9 +75,9 @@ static u16 sizeOfCurrentEvent = sizeOfEvent;
 //Reference to Node
 Node* node = NULL;
 
-LedWrapper* LedRed = NULL;
-LedWrapper* LedGreen = NULL;
-LedWrapper* LedBlue = NULL;
+//LedWrapper* LedRed = NULL;
+//LedWrapper* LedGreen = NULL;
+//LedWrapper* LedBlue = NULL;
 
 //Put the firmware version in a special section right after the initialization vector
 uint32_t app_version __attribute__((section(".Version"), used)) = FM_VERSION;
@@ -92,13 +90,13 @@ int main(void)
 	SET_BOARD();
 
 	//Configure LED pins as output
-	LedRed = new LedWrapper(Config->Led1Pin, Config->LedActiveHigh);
-	LedGreen = new LedWrapper(Config->Led2Pin, Config->LedActiveHigh);
-	LedBlue = new LedWrapper(Config->Led3Pin, Config->LedActiveHigh);
-
-	LedRed->Off();
-	LedGreen->On();
-	LedBlue->Off();
+//	LedRed = new LedWrapper(Config->Led1Pin, Config->LedActiveHigh);
+//	LedGreen = new LedWrapper(Config->Led2Pin, Config->LedActiveHigh);
+//	LedBlue = new LedWrapper(Config->Led3Pin, Config->LedActiveHigh);
+//
+//	LedRed->Off();
+//	LedGreen->On();
+//	LedBlue->Off();
 
 	//Initialize the UART Terminal
 	Terminal::Init();
@@ -107,7 +105,7 @@ int main(void)
 
 	//testing->testPacketQueue();
 
-	uart("ERROR", "{\"version\":2}" SEP);
+//	uart("ERROR", "{\"version\":2}" SEP);
 
 	//Enable logging for some interesting log tags
 	Logger::getInstance().enableTag("NODE");
@@ -198,16 +196,6 @@ int main(void)
 			//No more events available
 			else if (err == NRF_ERROR_NOT_FOUND)
 			{
-				//Handle waiting button event
-				if(button1HoldTimeDs != 0){
-					u32 holdTimeDs = button1HoldTimeDs;
-					button1HoldTimeDs = 0;
-
-					node->ButtonHandler(0, holdTimeDs);
-
-					dispatchButtonEvents(0, holdTimeDs);
-				}
-
 				//Handle Timer event that was waiting
 				if (node && node->passsedTimeSinceLastTimerHandlerDs > 0)
 				{
@@ -258,7 +246,7 @@ void detectBoardAndSetConfig(){
 void bleInit(void){
 	u32 err = 0;
 
-	logt("NODE", "Initializing Softdevice version 0x%x, Board %d", SD_FWID_GET(MBR_SIZE), Config->boardType);
+//	logt("NODE", "Initializing Softdevice version 0x%x, Board %d", SD_FWID_GET(MBR_SIZE), Config->boardType);
 
     // Initialize the SoftDevice handler with the low frequency clock source
 	//And a reference to the previously allocated buffer
@@ -274,7 +262,7 @@ void bleInit(void){
     err = softdevice_handler_init(&clock_lf_cfg, currentEventBuffer, sizeOfEvent, NULL);
     APP_ERROR_CHECK(err);
 
-    logt("NODE", "Softdevice Init OK");
+//    logt("NODE", "Softdevice Init OK");
 
     // Register with the SoftDevice handler module for System events.
     err = softdevice_sys_evt_handler_set(sys_evt_dispatch);
@@ -299,16 +287,16 @@ void bleInit(void){
     //The base ram address is gathered from the linker
     u32 app_ram_base = (u32)__application_ram_start_address;
     /* enable the BLE Stack */
-    logt("ERROR", "Ram base at 0x%x", app_ram_base);
+//    logt("ERROR", "Ram base at 0x%x", app_ram_base);
     err = sd_ble_enable(&params, &app_ram_base);
     if(err == NRF_SUCCESS){
     /* Verify that __LINKER_APP_RAM_BASE matches the SD calculations */
 		if(app_ram_base != (u32)__application_ram_start_address){
-			logt("ERROR", "Warning: unused memory: 0x%x", ((u32)__application_ram_start_address) - app_ram_base);
+//			logt("ERROR", "Warning: unused memory: 0x%x", ((u32)__application_ram_start_address) - app_ram_base);
 		}
 	} else if(err == NRF_ERROR_NO_MEM) {
 		/* Not enough memory for the SoftDevice. Use output value in linker script */
-		logt("ERROR", "Fatal: Not enough memory for the selected configuration. Required:0x%x", app_ram_base);
+//		logt("ERROR", "Fatal: Not enough memory for the selected configuration. Required:0x%x", app_ram_base);
     } else {
     	APP_ERROR_CHECK(err); //OK
     }
@@ -346,10 +334,10 @@ volatile uint32_t keepInfo;
 	//The app_error handler is called by all APP_ERROR_CHECK functions
 	void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 	{
-		LedBlue->Off();
-		LedRed->Off();
+//		LedBlue->Off();
+//		LedRed->Off();
 		if(Config->debugMode) while(1){
-			LedGreen->Toggle();
+//			LedGreen->Toggle();
 			nrf_delay_us(50000);
 		}
 
@@ -363,15 +351,15 @@ volatile uint32_t keepInfo;
 		keepPc = pc;
 		keepInfo = info;
 
-		LedRed->Off();
-		LedGreen->Off();
+//		LedRed->Off();
+//		LedGreen->Off();
 		if(Config->debugMode) while(1){
-			LedBlue->Toggle();
+//			LedBlue->Toggle();
 			nrf_delay_us(50000);
 		}
 		else NVIC_SystemReset();
-
-		logt("ERROR", "Softdevice fault id %u, pc %u, info %u", keepId, keepPc, keepInfo);
+//
+//		logt("ERROR", "Softdevice fault id %u, pc %u, info %u", keepId, keepPc, keepInfo);
 	}
 
 	//Dispatches system events
@@ -389,10 +377,10 @@ volatile uint32_t keepInfo;
 	//This is, where the program will get stuck in the case of a Hard fault
 	void HardFault_Handler(void)
 	{
-		LedBlue->Off();
-		LedGreen->Off();
+//		LedBlue->Off();
+//		LedGreen->Off();
 		if(Config->debugMode) while(1){
-			LedRed->Toggle();
+//			LedRed->Toggle();
 			nrf_delay_us(50000);
 		}
 		else NVIC_SystemReset();
@@ -420,7 +408,7 @@ void bleDispatchEventHandler(ble_evt_t * bleEvent)
 	u16 eventId = bleEvent->header.evt_id;
 
 
-	logt("EVENTS", "BLE EVENT %s (%d)", Logger::getBleEventNameString(eventId), eventId);
+//	logt("EVENTS", "BLE EVENT %s (%d)", Logger::getBleEventNameString(eventId), eventId);
 
 //	if(
 //			bleEvent->header.evt_id != BLE_GAP_EVT_RSSI_CHANGED &&
@@ -444,7 +432,7 @@ void bleDispatchEventHandler(ble_evt_t * bleEvent)
 		}
 	}
 
-	logt("EVENTS", "End of event");
+//	logt("EVENTS", "End of event");
 
 //	if(
 //				bleEvent->header.evt_id != BLE_GAP_EVT_RSSI_CHANGED &&
@@ -537,7 +525,7 @@ void initGpioteButtons(){
 }
 
 void buttonInterruptHandler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action){
-	LedGreen->Toggle();
+//	LedGreen->Toggle();
 
 	//Because we don't know which state the button is in, we have to read it
 	u32 state = nrf_gpio_pin_read(pin);

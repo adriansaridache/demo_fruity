@@ -22,7 +22,6 @@ set(SOURCE_FILES
         config/types.h
         inc/AdvertisingController.h
         inc/AdvertisingModule.h
-        inc/ButtonListener.h
         inc/Connection.h
         inc/ConnectionManager.h
         inc/DebugModule.h
@@ -30,7 +29,6 @@ set(SOURCE_FILES
         inc/GAPController.h
         inc/GATTController.h
         inc/IoModule.h
-        inc/LedWrapper.h
         inc/Logger.h
         inc/Main.h
         inc/Module.h
@@ -46,7 +44,6 @@ set(SOURCE_FILES
         inc/Storage.h
         inc/SystemTest.h
         inc/Terminal.h
-        inc/TestBattery.h
         inc/Testing.h
         inc/Utility.h
         inc_c/crc16.h
@@ -71,10 +68,7 @@ set(SOURCE_FILES
         src/segger_rtt/RTT_Syscalls_GCC.c
         src/segger_rtt/SEGGER_RTT.c
         src/test/SystemTest.cpp
-        src/test/TestBattery.cpp
         src/test/Testing.cpp
-        src/utility/ButtonListener.cpp
-        src/utility/LedWrapper.cpp
         src/utility/Logger.cpp
         src/utility/NewStorage.cpp
         src/utility/PacketQueue.cpp

@@ -80,6 +80,7 @@ void Reset_Handler(void);                            /* Reset Handler */
   User Initial Stack & Heap
  *----------------------------------------------------------------------------*/
 #ifndef __STACK_SIZE
+#error "Got here"
   #define	__STACK_SIZE  0x00000400
 #endif
 static uint8_t stack[__STACK_SIZE] __attribute__ ((aligned(8), used, section(".stack")));

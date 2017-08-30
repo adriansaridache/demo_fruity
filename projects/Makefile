@@ -8,7 +8,7 @@ VERBOSE      ?= 0
 
 
 CPU := cortex-m0
-LINKER_SCRIPT := linker/gcc_nrf51_s130_32kb.ld
+LINKER_SCRIPT := linker/gcc_nrf51_s130_16kb.ld
 
 NRF5_SDK_PATH ?= C:/nrf/sdk/nrf_sdk_11_0
 COMPONENTS     = $(NRF5_SDK_PATH)/components
@@ -22,8 +22,8 @@ INC_PATHS += -I$(COMPONENTS)/softdevice/s130/headers/nrf51
 
 SOFTDEVICE_PATH = $(COMPONENTS)/softdevice/s130/hex/s130_nrf51_2.0.0_softdevice.hex
 
-HEAP_SIZE = 2048
-STACK_SIZE = 2048
+HEAP_SIZE = 1024
+STACK_SIZE = 1024
 
 SERIAL_DEVICE ?= /dev/ttyCOM4  # FIXME Use proper matching for OSX compatiblity
 
@@ -145,6 +145,7 @@ CFLAGS += -mcpu=$(CPU) -mthumb -fmessage-length=0 -fsigned-char
 CFLAGS += -ffunction-sections -fdata-sections -flto -fno-move-loop-invariants
 CFLAGS += -Wextra -DBLE_STACK_SUPPORT_REQD $(DEBUG_FLAGS) -D$(BOARD)
 CFLAGS += -D$(PLATFORM) -D__need___va_list
+CFLAGS += -DHEAP_SIZE=$(HEAP_SIZE) -DSTACK_SIZE=$(STACK_SIZE)
 
 # C++ compiler flags
 CXXFLAGS += $(CFLAGS)

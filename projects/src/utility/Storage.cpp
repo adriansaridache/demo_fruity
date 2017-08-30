@@ -60,7 +60,7 @@ Storage::Storage()
 
 	//Register a number of blocks
 	if (pstorage_register(&param, &handle) != NRF_SUCCESS){
-		logt("STORAGE", "Could not register storage");
+//		logt("STORAGE", "Could not register storage");
 	}
 	for (u32 i = 0; i < num_blocks; ++i){
 		pstorage_block_identifier_get(&handle, i, &block_handles[i]);
@@ -117,10 +117,10 @@ bool Storage::BufferedWrite(u8* data, u32 block,u32 len)
 {
 	//Must be a multiple of 4 bytes and must be aligned
 	if(len % 4 != 0 || (u32)data % 4 != 0){
-		logt("ERROR", "Write fail: %u, %u", data, len);
+//		logt("ERROR", "Write fail: %u, %u", data, len);
 		return false;
 	}
-	logt("STORAGE", "Writing len:%u to block:%u", len, block);
+//	logt("STORAGE", "Writing len:%u to block:%u", len, block);
 
 	//Call clear first before writing to the flash
 	//Clear will generate an event that is handeled in the PstorabeEventHandler
@@ -200,7 +200,7 @@ bool Storage::TerminalCommandHandler(string commandName, vector<string> commandA
 
 		BufferedWrite((unsigned char*)data, slotNum, len);
 
-		logt("STORAGE", "len: %d is saved in %d", len, slotNum);
+//		logt("STORAGE", "len: %d is saved in %d", len, slotNum);
 
 	} else if (commandName == "load"){
 		int slotNum = atoi(commandArgs[0].c_str());
@@ -210,7 +210,7 @@ bool Storage::TerminalCommandHandler(string commandName, vector<string> commandA
 		u8 dest_data[len];
 		BufferedRead(dest_data, slotNum, len);
 
-		logt("STORAGE", "%s (%d) has been loaded from %d", dest_data, len, slotNum);
+//		logt("STORAGE", "%s (%d) has been loaded from %d", dest_data, len, slotNum);
 
 	} else {
 		return false;

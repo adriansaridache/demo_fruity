@@ -65,7 +65,7 @@ public:
 	}
 
 
-#define NUM_ERROR_LOG_ENTRIES 100
+#define NUM_ERROR_LOG_ENTRIES 10
 	typedef struct{
 			u8 errorType;
 			u16 extraInfo;

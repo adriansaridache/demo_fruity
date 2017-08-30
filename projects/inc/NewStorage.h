@@ -85,7 +85,7 @@ enum NewStorageCommand {NONE, WRITE_DATA, WRITE_AND_CACHE_DATA, ERASE_PAGE, ERAS
 
 #define NEW_STORAGE_TASK_QUEUE_LENGTH 10
 #define NEW_STORAGE_RETRY_COUNT 3
-#define NEW_STORAGE_DATA_BUFFER_SIZE 256
+#define NEW_STORAGE_DATA_BUFFER_SIZE 64
 
 class NewStorage : public TerminalCommandListener
 {

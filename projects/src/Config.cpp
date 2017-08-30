@@ -72,7 +72,7 @@ Conf* Conf::getInstance(){
 			instance->defaultNodeId = testDevice->id;
 			instance->deviceType = testDevice->deviceType;
 
-			memcpy(&instance->staticAccessAddress, &testDevices->addr, sizeof(ble_gap_addr_t));
+			//memcpy(&instance->staticAccessAddress, &testDevices->addr, sizeof (ble_gap_addr_t));
 
 		//No device specific config was found, generate random values
 		} else {
@@ -90,16 +90,16 @@ Conf* Conf::getInstance(){
 //Uses the testDevice array and copies the configured values to the node settings
 Conf::testDevice* Conf::getTestDevice()
 {
-	u8 found = 0;
-
-	//Find our testDevice
-	for(u32 i=0; i<NUM_TEST_DEVICES; i++){
-		if(testDevices[i].chipID == NRF_FICR->DEVICEID[1])
-		{
-			return &(testDevices[i]);
-		}
-	}
-	return NULL;
+//	u8 found = 0;
+//
+//////	Find our testDevice
+//	for(u32 i=0; i<NUM_TEST_DEVICES; i++){
+//		if(testDevices[i].chipID == NRF_FICR->DEVICEID[1])
+//		{
+//			return &(testDevices[i]);
+//		}
+//	}
+//	return NULL;
 }
 
 
@@ -137,45 +137,45 @@ Parameters:
 	- string representation of the node id for the terminal
 	- desired BLE access address: Must comply to the spec (only modify the first byte for starters)
 */
-Conf::testDevice Conf::testDevices[NUM_TEST_DEVICES] = {
-
-		{ 1650159794, 45, DEVICE_TYPE_SINK, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x45, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 2267790660, 72, DEVICE_TYPE_SINK, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x72, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 931144702, 458, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x58, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 1952379473, 635, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x35, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 3505517882, 847, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x47, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 0xFFFF, 667, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x67, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 1812994605, 304, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x04, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 449693942, 493, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x93, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 306206226, 309, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x09, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
-
-		{ 1040859205, 880, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x80, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } }
-
-	};
+//Conf::testDevice Conf::testDevices[NUM_TEST_DEVICES] = {
+//
+//        { 1650159794, 45, DEVICE_TYPE_SINK, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x45, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 2267790660, 72, DEVICE_TYPE_SINK, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x72, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 931144702, 458, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x58, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 1952379473, 635, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x35, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 3505517882, 847, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x47, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 0xFFFF, 667, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x67, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 1812994605, 304, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x04, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 449693942, 493, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x93, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 306206226, 309, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x09, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } },
+//
+//        { 1040859205, 880, DEVICE_TYPE_STATIC, {BLE_GAP_ADDR_TYPE_RANDOM_STATIC, { 0x80, 0x16, 0xE8, 0x52, 0x4E, 0xc0 } } }
+//
+//};
 
 //Insert node ids here and they will receive a colored led when clustering
 //after clustering, all nodes should have the color of the node that generated the cluster
-nodeID Conf::testColourIDs[NUM_TEST_COLOUR_IDS] = {
-		45,
-		880,
-		304,
-		4290,
-		9115,
-		309,
-
-		14980,
-		2807,
-		583,
-		6574,
-		12583,
-		6388
-
-};
+//nodeID Conf::testColourIDs[NUM_TEST_COLOUR_IDS] = {
+//		45,
+//		880,
+//		304,
+//		4290,
+//		9115,
+//		309,
+//
+//		14980,
+//		2807,
+//		583,
+//		6574,
+//		12583,
+//		6388
+//
+//};

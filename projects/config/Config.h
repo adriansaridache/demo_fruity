@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <types.h>
-#include <LedWrapper.h>
 
 extern "C" {
 #include <ble_gap.h>
@@ -42,9 +41,9 @@ extern "C" {
 #define FM_VERSION_PATCH 50
 #define FM_VERSION (10000000 * FM_VERSION_MAJOR + 10000 * FM_VERSION_MINOR + FM_VERSION_PATCH);
 
-extern LedWrapper* LedRed;
-extern LedWrapper* LedGreen;
-extern LedWrapper* LedBlue;
+//extern LedWrapper* LedRed;
+//extern LedWrapper* LedGreen;
+//extern LedWrapper* LedBlue;
 
 #define MESH_IN_CONNECTIONS 1
 #define MESH_OUT_CONNECTIONS 3
@@ -105,8 +104,6 @@ class Conf
 
 		//Instruct the Advertising Module to advertise Debug Packets
 		bool advertiseDebugPackets = false;
-
-		ledMode defaultLedMode = ledMode::LED_MODE_CONNECTIONS;
 
 		//Configures whether the terminal will start in interactive mode or not
 		bool terminalPromptMode = true;
@@ -238,11 +235,11 @@ class Conf
 			ble_gap_addr_t addr;
 		} testDevice;
 
-		#define NUM_TEST_DEVICES 10
-		static testDevice testDevices[];
+//		#define NUM_TEST_DEVICES 10
+//		static testDevice testDevices[];
 
-		#define NUM_TEST_COLOUR_IDS 12
-		static nodeID testColourIDs[];
+//		#define NUM_TEST_COLOUR_IDS 12
+//		static nodeID testColourIDs[];
 
 		Conf::testDevice* getTestDevice();
 
@@ -281,16 +278,16 @@ class Conf
 }while(0);
 
 //Each of the Connections has a buffer for outgoing packets, this is its size in bytes
-#define PACKET_SEND_BUFFER_SIZE 600
+#define PACKET_SEND_BUFFER_SIZE 300
 
 //Each connection does also have a buffer to assemble packets that were split into 20 byte chunks
-#define PACKET_REASSEMBLY_BUFFER_SIZE 200
+#define PACKET_REASSEMBLY_BUFFER_SIZE 100
 
 //Number of supported Modules
-#define MAX_MODULE_COUNT 10
+#define MAX_MODULE_COUNT 5
 
 //Defines the maximum size of the mesh write attribute. This space is required in the ATTR table
-#define MESH_CHARACTERISTIC_MAX_LENGTH 100
+#define MESH_CHARACTERISTIC_MAX_LENGTH 20
 
 //Size of Attribute table can be set lower than the default if we do not need that much
 #define ATTR_TABLE_MAX_SIZE 0x200
@@ -300,7 +297,7 @@ class Conf
 #define MESH_IDENTIFIER 0xF0 //Identifier that defines this as the fruitymesh protocol
 
 //GAP device name
-#define DEVICE_NAME "FRUITY"
+#define DEVICE_NAME "F1"
 
 //Serial should be short but unique for the given manufacturer id
 #define MANUFACTURER_ID 0xFFFF //The manufacturer id should match your company identifier that should be registered with the bluetooth sig: https://www.bluetooth.org/en-us/specification/assigned-numbers/company-identifiers
@@ -313,13 +310,13 @@ class Conf
 /*############ TERMINAL AND LOGGER ################*/
 
 //Size for tracing messages to the log transport, if it is too short, messages will get truncated
-#define TRACE_BUFFER_SIZE 500
+#define TRACE_BUFFER_SIZE 10
 
 //Define to enable terminal in-/output through UART
 //#define USE_UART
 //Use the SEGGER RTT protocol for in and output
 //In J-Link RTT view, set line ending to CR and send input on enter, echo input to off
-#define USE_SEGGER_RTT
+//#define USE_SEGGER_RTT
 
 //#define USE_BUTTONS
 

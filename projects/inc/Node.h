@@ -32,14 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <types.h>
 #include <adv_packets.h>
 #include <conn_packets.h>
-#include <LedWrapper.h>
 #include <ConnectionManager.h>
 #include <Connection.h>
 #include <SimpleBuffer.h>
 #include <Storage.h>
 #include <Module.h>
 #include <Terminal.h>
-#include <ButtonListener.h>
 
 extern "C"
 {
@@ -59,8 +57,7 @@ typedef struct
 class Node:
 		public TerminalCommandListener,
 		public ConnectionManagerCallback,
-		public StorageEventListener,
-		public ButtonListener
+		public StorageEventListener
 {
 	private:
 		static Node* instance;
@@ -128,10 +125,6 @@ class Node:
 
 		u32 radioActiveCount;
 
-		u8 ledBlinkPosition;
-
-		ledMode currentLedMode;
-
 		bool outputRawData;
 
 		bool initializedByGateway; //Can be set to true by a mesh gateway after all configuration has been set
@@ -195,9 +188,6 @@ class Node:
 		//Methods of TerminalCommandListener
 		bool TerminalCommandHandler(string commandName, vector<string> commandArgs);
 
-		//Will be called if a button has been clicked
-		void ButtonHandler(u8 buttonId, u32 holdTimeDs);
-
 		//Implements Storage Callback for loading the configuration
 		void ConfigurationLoadedHandler();
 
@@ -207,6 +197,5 @@ class Node:
 		void ConnectingTimeoutHandler(ble_evt_t* bleEvent);
 		void messageReceivedCallback(connectionPacket* inPacket);
 
-		u8 GetBatteryRuntime();
 
 };

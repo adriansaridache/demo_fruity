@@ -116,7 +116,6 @@ void StatusReporterModule::SendStatus(nodeID toNode, u8 messageType)
 
 		StatusReporterModuleStatusMessage* outPacketData = (StatusReporterModuleStatusMessage*)(outPacket->data);
 
-		outPacketData->batteryInfo = node->GetBatteryRuntime();
 		outPacketData->clusterSize = node->clusterSize;
 		outPacketData->connectionLossCounter = node->persistentConfig.connectionLossCounter; //TODO: connectionlosscounter is random at the moment
 		outPacketData->freeIn = cm->freeInConnections;

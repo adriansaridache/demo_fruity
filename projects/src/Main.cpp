@@ -64,9 +64,6 @@ static u16 sizeOfCurrentEvent = sizeOfEvent;
 // If not enabled, the server's database cannot be changed for the lifetime of the device
 #define IS_SRVC_CHANGED_CHARACT_PRESENT 1
 
-
-
-
 #define APP_TIMER_PRESCALER       0 // Value of the RTC1 PRESCALER register
 #define APP_TIMER_MAX_TIMERS      1 //Maximum number of simultaneously created timers (2 + BSP_APP_TIMERS_NUMBER)
 #define APP_TIMER_OP_QUEUE_SIZE   1 //Size of timer operation queues
@@ -74,10 +71,6 @@ static u16 sizeOfCurrentEvent = sizeOfEvent;
 
 //Reference to Node
 Node* node = NULL;
-
-//LedWrapper* LedRed = NULL;
-//LedWrapper* LedGreen = NULL;
-//LedWrapper* LedBlue = NULL;
 
 //Put the firmware version in a special section right after the initialization vector
 uint32_t app_version __attribute__((section(".Version"), used)) = FM_VERSION;
@@ -87,16 +80,7 @@ int main(void)
 	u32 err;
 
 	//Detect the used board at runtime or select one at compile time in the config
-	SET_BOARD();
-
-	//Configure LED pins as output
-//	LedRed = new LedWrapper(Config->Led1Pin, Config->LedActiveHigh);
-//	LedGreen = new LedWrapper(Config->Led2Pin, Config->LedActiveHigh);
-//	LedBlue = new LedWrapper(Config->Led3Pin, Config->LedActiveHigh);
-//
-//	LedRed->Off();
-//	LedGreen->On();
-//	LedBlue->Off();
+	//SET_BOARD();
 
 	//Initialize the UART Terminal
 	Terminal::Init();
@@ -105,14 +89,12 @@ int main(void)
 
 	//testing->testPacketQueue();
 
-//	uart("ERROR", "{\"version\":2}" SEP);
-
 	//Enable logging for some interesting log tags
-	Logger::getInstance().enableTag("NODE");
-	Logger::getInstance().enableTag("STORAGE");
-	Logger::getInstance().enableTag("DATA");
-	Logger::getInstance().enableTag("SEC");
-	Logger::getInstance().enableTag("HANDSHAKE");
+//	Logger::getInstance().enableTag("NODE");
+//	Logger::getInstance().enableTag("STORAGE");
+//	Logger::getInstance().enableTag("DATA");
+//	Logger::getInstance().enableTag("SEC");
+//	Logger::getInstance().enableTag("HANDSHAKE");
 //	Logger::getInstance().enableTag("DISCOVERY");
 //	Logger::getInstance().enableTag("CONN");
 //	Logger::getInstance().enableTag("STATES");
@@ -124,7 +106,7 @@ int main(void)
 //	Logger::getInstance().enableTag("STATES");
 
 	//Initialize GPIOTE for Buttons
-	initGpioteButtons();
+	//initGpioteButtons();
 
 	//Initialialize the SoftDevice and the BLE stack
 	bleInit();
@@ -160,17 +142,10 @@ int main(void)
 
 	//node->Stop();
 
-
-
 	//new Testing();
-
 
 	//Start Timers
 	initTimers();
-
-	//TestBattery* testBattery = new TestBattery();
-	//testBattery->startTesting();
-	//testBattery->scanAt50Percent();
 
 	pendingSysEvent = 0;
 
@@ -236,6 +211,7 @@ int main(void)
 
 void detectBoardAndSetConfig(){
 #ifdef DETECT_AND_SET_ARS100748_BOARD
+#error "I got here!"
 	DETECT_AND_SET_ARS100748_BOARD();
 #endif
 
@@ -334,10 +310,7 @@ volatile uint32_t keepInfo;
 	//The app_error handler is called by all APP_ERROR_CHECK functions
 	void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 	{
-//		LedBlue->Off();
-//		LedRed->Off();
 		if(Config->debugMode) while(1){
-//			LedGreen->Toggle();
 			nrf_delay_us(50000);
 		}
 
@@ -351,10 +324,7 @@ volatile uint32_t keepInfo;
 		keepPc = pc;
 		keepInfo = info;
 
-//		LedRed->Off();
-//		LedGreen->Off();
 		if(Config->debugMode) while(1){
-//			LedBlue->Toggle();
 			nrf_delay_us(50000);
 		}
 		else NVIC_SystemReset();
@@ -377,10 +347,8 @@ volatile uint32_t keepInfo;
 	//This is, where the program will get stuck in the case of a Hard fault
 	void HardFault_Handler(void)
 	{
-//		LedBlue->Off();
-//		LedGreen->Off();
+
 		if(Config->debugMode) while(1){
-//			LedRed->Toggle();
 			nrf_delay_us(50000);
 		}
 		else NVIC_SystemReset();
@@ -514,7 +482,6 @@ void initGpioteButtons(){
 	buttonConfig.pull = NRF_GPIO_PIN_PULLUP;
 	buttonConfig.is_watcher = false;
 	buttonConfig.hi_accuracy = false;
-
 	//This uses the SENSE low power feature, all pin events are reported
 	//at the same GPIOTE channel
 	u32 err =  nrf_drv_gpiote_in_init(Config->Button1Pin, &buttonConfig, buttonInterruptHandler);

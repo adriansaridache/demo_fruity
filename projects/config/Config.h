@@ -253,18 +253,17 @@ class Conf
 		i8 radioTransmitPower = 4; //The power at which the radio transmits advertisings and data packets
 };
 
-
 // ########### COMPILE TIME SETTINGS ##########################################
 
 //Selecting the board can be done at runtime
-#include <board_pca10031.h>
-#include <board_ars100748.h>
-#include <board_ars100748_adapter.h>
-#include <board_ars100748_cable.h>
-#include <board_pca10036.h>
-#include <board_pca10040.h>
-#include <board_ars101693.h>
-#include <board_ars101694.h>
+//#include <board_pca10031.h>
+//#include <board_ars100748.h>
+//#include <board_ars100748_adapter.h>
+//#include <board_ars100748_cable.h>
+//#include <board_pca10036.h>
+//#include <board_pca10040.h>
+//#include <board_ars101693.h>
+//#include <board_ars101694.h>
 
 #define SET_BOARD() do{					\
 		SET_PCA10031_BOARD_IF_FIT(Config->boardType);		\

@@ -100,7 +100,7 @@ class Conf
 		bool breakpointToggleActive = false;
 
 		//If in debug mode, the node will run in endless loops when errors occur
-		bool debugMode = false;
+		bool debugMode = 0;
 
 		//Instruct the Advertising Module to advertise Debug Packets
 		bool advertiseDebugPackets = false;
@@ -304,7 +304,7 @@ class Conf
 
 //Storage
 #define STORAGE_BLOCK_SIZE 128 //Determines the maximum size for a module configuration
-#define STORAGE_BLOCK_NUMBER 8 //Determines the number of blocks that are available
+#define STORAGE_BLOCK_NUMBER 1 //Determines the number of blocks that are available
 
 /*############ TERMINAL AND LOGGER ################*/
 

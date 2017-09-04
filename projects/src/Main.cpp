@@ -74,6 +74,7 @@ Node* node = NULL;
 
 //Put the firmware version in a special section right after the initialization vector
 uint32_t app_version __attribute__((section(".Version"), used)) = FM_VERSION;
+struct mallinfo minfo;
 
 int main(void)
 {
@@ -158,6 +159,7 @@ int main(void)
 
 		do
 		{
+			minfo = mallinfo();
 			//Fetch the event
 			sizeOfCurrentEvent = sizeOfEvent;
 			err = sd_ble_evt_get((u8*)currentEventBuffer, &sizeOfCurrentEvent);

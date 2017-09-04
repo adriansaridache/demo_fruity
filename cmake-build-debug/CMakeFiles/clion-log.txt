@@ -1,0 +1,2 @@
+CMakeLists.txt not found in C:\nrf
+MinGW not found at: C:\msys32\mingw32.exe

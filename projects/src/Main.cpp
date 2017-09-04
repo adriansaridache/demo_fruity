@@ -67,8 +67,6 @@ static u16 sizeOfCurrentEvent = sizeOfEvent;
 #define IS_SRVC_CHANGED_CHARACT_PRESENT 1
 
 
-
-
 #define APP_TIMER_PRESCALER       0 // Value of the RTC1 PRESCALER register
 #define APP_TIMER_MAX_TIMERS      1 //Maximum number of simultaneously created timers (2 + BSP_APP_TIMERS_NUMBER)
 #define APP_TIMER_OP_QUEUE_SIZE   1 //Size of timer operation queues
@@ -76,10 +74,6 @@ static u16 sizeOfCurrentEvent = sizeOfEvent;
 
 //Reference to Node
 Node* node = NULL;
-
-LedWrapper* LedRed = NULL;
-LedWrapper* LedGreen = NULL;
-LedWrapper* LedBlue = NULL;
 
 //Put the firmware version in a special section right after the initialization vector
 uint32_t app_version __attribute__((section(".Version"), used)) = FM_VERSION;
@@ -89,16 +83,7 @@ int main(void)
 	u32 err;
 
 	//Detect the used board at runtime or select one at compile time in the config
-	SET_BOARD();
-
-	//Configure LED pins as output
-	LedRed = new LedWrapper(Config->Led1Pin, Config->LedActiveHigh);
-	LedGreen = new LedWrapper(Config->Led2Pin, Config->LedActiveHigh);
-	LedBlue = new LedWrapper(Config->Led3Pin, Config->LedActiveHigh);
-
-	LedRed->Off();
-	LedGreen->On();
-	LedBlue->Off();
+//	SET_BOARD();
 
 	//Initialize the UART Terminal
 	Terminal::Init();
@@ -161,7 +146,6 @@ int main(void)
 	//Terminal::ProcessLine((char*)line.c_str());
 
 	//node->Stop();
-
 
 
 	//new Testing();
@@ -346,10 +330,8 @@ volatile uint32_t keepInfo;
 	//The app_error handler is called by all APP_ERROR_CHECK functions
 	void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 	{
-		LedBlue->Off();
-		LedRed->Off();
+
 		if(Config->debugMode) while(1){
-			LedGreen->Toggle();
 			nrf_delay_us(50000);
 		}
 
@@ -363,10 +345,8 @@ volatile uint32_t keepInfo;
 		keepPc = pc;
 		keepInfo = info;
 
-		LedRed->Off();
-		LedGreen->Off();
 		if(Config->debugMode) while(1){
-			LedBlue->Toggle();
+
 			nrf_delay_us(50000);
 		}
 		else NVIC_SystemReset();
@@ -389,10 +369,9 @@ volatile uint32_t keepInfo;
 	//This is, where the program will get stuck in the case of a Hard fault
 	void HardFault_Handler(void)
 	{
-		LedBlue->Off();
-		LedGreen->Off();
+
 		if(Config->debugMode) while(1){
-			LedRed->Toggle();
+
 			nrf_delay_us(50000);
 		}
 		else NVIC_SystemReset();
@@ -537,7 +516,6 @@ void initGpioteButtons(){
 }
 
 void buttonInterruptHandler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action){
-	LedGreen->Toggle();
 
 	//Because we don't know which state the button is in, we have to read it
 	u32 state = nrf_gpio_pin_read(pin);

@@ -5,7 +5,6 @@
 #include <Config.h>
 
 #include <Node.h>
-#include <LedWrapper.h>
 #include <Connection.h>
 #include <SimpleBuffer.h>
 #include <AdvertisingController.h>
@@ -77,19 +76,8 @@ Node::Node(networkID networkId)
 
 	initializedByGateway = false;
 
-	LedRed->Off();
-	LedGreen->Off();
-	LedBlue->Off();
-
-	ledBlinkPosition = 0;
-
-
-
 	//Register terminal listener
 	Terminal::AddTerminalCommandListener(this);
-
-	currentLedMode = Config->defaultLedMode;
-
 
 	//Receive ConnectionManager events
 	cm = ConnectionManager::getInstance();
@@ -1175,80 +1163,6 @@ void Node::TimerTickHandler(u16 timerDs)
 		ChangeState(nextDiscoveryState);
 	}
 
-
-	if (currentLedMode == ledMode::LED_MODE_CONNECTIONS)
-	{
-		//Now we test for blinking lights
-		u8 countHandshake = (cm->inConnection->handshakeDone() ? 1 : 0) + (cm->outConnections[0]->handshakeDone() ? 1 : 0) + (cm->outConnections[1]->handshakeDone() ? 1 : 0) + (cm->outConnections[2]->handshakeDone() ? 1 : 0);
-		u8 countConnected = (cm->inConnection->isConnected() ? 1 : 0) + (cm->outConnections[0]->isConnected() ? 1 : 0) + (cm->outConnections[1]->isConnected() ? 1 : 0) + (cm->outConnections[2]->isConnected() ? 1 : 0);
-
-		u8 i = ledBlinkPosition / 2;
-
-		if(i < Config->meshMaxConnections){
-			if(ledBlinkPosition % 2 == 0){
-				//Connected and handshake done
-				if(cm->connections[i]->handshakeDone()) { LedBlue->On(); }
-				//Connected and handshake not done
-				if(!cm->connections[i]->handshakeDone() && cm->connections[i]->isConnected()) { LedGreen->On(); }
-				//A free connection
-				if(!cm->connections[i]->isConnected()) {  }
-				//No connections
-				if(countHandshake == 0 && countConnected == 0) { LedRed->On(); }
-			} else {
-				LedRed->Off();
-				LedGreen->Off();
-				LedBlue->Off();
-			}
-		}
-
-		ledBlinkPosition = (ledBlinkPosition + 1) % ((Config->meshMaxConnections + 2) * 2);
-	}
-	else if(currentLedMode == ledMode::LED_MODE_CLUSTERING)
-	{
-		ledBlinkPosition++;
-
-		int c = 0;
-		for(int i=0; i<NUM_TEST_COLOUR_IDS; i++){
-			nodeID nodeIdFromClusterId = clusterId & 0xffff;
-
-			if(Config->testColourIDs[i] == nodeIdFromClusterId){
-				c = (i+1) % 8;
-
-				if(c & (1 << 0)) LedRed->On();
-				else LedRed->Off();
-
-				if(c & (1 << 1)) LedGreen->On();
-				else LedGreen->Off();
-
-				if(c & (1 << 2)) LedBlue->On();
-				else LedBlue->Off();
-
-				if(i >= 8 && ledBlinkPosition %2 == 0){
-					LedRed->Off();
-					LedGreen->Off();
-					LedBlue->Off();
-				}
-			}
-		}
-	}
-	else if(currentLedMode == ledMode::LED_MODE_ON)
-	{
-		LedRed->On();
-		LedGreen->On();
-		LedBlue->On();
-	}
-	else if(currentLedMode == ledMode::LED_MODE_OFF)
-	{
-		LedRed->Off();
-		LedGreen->Off();
-		LedBlue->Off();
-	}
-	else if(currentLedMode == ledMode::LED_MODE_ASSET)
-	{
-		LedRed->Toggle();
-		LedGreen->Toggle();
-		LedBlue->Toggle();
-	}
 }
 
 void Node::UpdateGlobalTime(){

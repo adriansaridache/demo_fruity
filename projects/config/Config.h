@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <types.h>
-#include <LedWrapper.h>
 
 extern "C" {
 #include <ble_gap.h>
@@ -41,10 +40,6 @@ extern "C" {
 #define FM_VERSION_MINOR 3
 #define FM_VERSION_PATCH 50
 #define FM_VERSION (10000000 * FM_VERSION_MAJOR + 10000 * FM_VERSION_MINOR + FM_VERSION_PATCH);
-
-extern LedWrapper* LedRed;
-extern LedWrapper* LedGreen;
-extern LedWrapper* LedBlue;
 
 #define MESH_IN_CONNECTIONS 1
 #define MESH_OUT_CONNECTIONS 3
@@ -105,8 +100,6 @@ class Conf
 
 		//Instruct the Advertising Module to advertise Debug Packets
 		bool advertiseDebugPackets = false;
-
-		ledMode defaultLedMode = ledMode::LED_MODE_CONNECTIONS;
 
 		//Configures whether the terminal will start in interactive mode or not
 		bool terminalPromptMode = true;
@@ -181,10 +174,6 @@ class Conf
 		// ########### BOARD_SPECIFICS ################################################
 		//Default board is pca10031, modify SET_BOARD if different board is required
 		//Or flash config data to UICR
-		i8 Led1Pin;
-		i8 Led2Pin;
-		i8 Led3Pin;
-		bool LedActiveHigh; //Defines if writing 0 or 1 to an LED turns it on
 
 		i8 Button1Pin;
 		bool ButtonsActiveHigh;
@@ -202,7 +191,7 @@ class Conf
 
 		//Set a default boardId for NRF51 and NRF52 in case no other data is available
 #if defined(NRF51)
-		u32 boardType = PCA_10031;
+		u32 boardType = PCA_10028;
 #elif defined(NRF52)
 		u32 boardType = PCA_10040;
 #else
@@ -321,7 +310,7 @@ class Conf
 //In J-Link RTT view, set line ending to CR and send input on enter, echo input to off
 //#define USE_SEGGER_RTT
 
-#define USE_BUTTONS
+//#define USE_BUTTONS
 
 #define EOL "\r\n"
 #define SEP "\r\n"

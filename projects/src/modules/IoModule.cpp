@@ -138,29 +138,6 @@ bool IoModule::TerminalCommandHandler(string commandName, vector<string> command
 
 				return true;
 			}
-			//E.g. action 635 io led on
-			else if(commandArgs.size() >= 4 && commandArgs[2] == "led")
-			{
-				IoModuleSetLedMessage data;
-
-				if(commandArgs[3] == "on") data.ledMode= ledMode::LED_MODE_ON;
-				else if(commandArgs[3] == "cluster") data.ledMode = ledMode::LED_MODE_CLUSTERING;
-				else data.ledMode = ledMode::LED_MODE_CONNECTIONS;
-
-				u8 requestHandle = commandArgs.size() >= 5 ? atoi(commandArgs[4].c_str()) : 0;
-
-				SendModuleActionMessage(
-					MESSAGE_TYPE_MODULE_TRIGGER_ACTION,
-					destinationNode,
-					IoModuleTriggerActionMessages::SET_LED,
-					requestHandle,
-					(u8*)&data,
-					1,
-					false
-				);
-
-				return true;
-			}
 
 			return false;
 
@@ -187,7 +164,6 @@ void IoModule::ConnectionPacketReceivedEventHandler(connectionPacket* inPacket, 
 		if(packet->moduleId == moduleId){
 			if(packet->actionType == IoModuleTriggerActionMessages::SET_PIN_CONFIG){
 
-				node->currentLedMode = ledMode::LED_MODE_OFF;
 
 				//Parse the data and set the gpio ports to the requested
 				for(int i=0; i<dataFieldLength; i+=SIZEOF_GPIO_PIN_CONFIG)
@@ -216,45 +192,9 @@ void IoModule::ConnectionPacketReceivedEventHandler(connectionPacket* inPacket, 
 					false
 				);
 			}
-			//A message to switch on the LEDs
-			else if(packet->actionType == IoModuleTriggerActionMessages::SET_LED){
 
-				IoModuleSetLedMessage* data = (IoModuleSetLedMessage*)packet->data;
-
-				node->currentLedMode = (ledMode)data->ledMode;
-
-				//send confirmation
-				SendModuleActionMessage(
-					MESSAGE_TYPE_MODULE_ACTION_RESPONSE,
-					packet->header.sender,
-					IoModuleActionResponseMessages::SET_LED_RESPONSE,
-					packet->requestHandle,
-					NULL,
-					0,
-					false
-				);
-			}
 		}
 	}
 
-	//Parse Module responses
-	if(packetHeader->messageType == MESSAGE_TYPE_MODULE_ACTION_RESPONSE){
-		connPacketModule* packet = (connPacketModule*)packetHeader;
-
-		//Check if our module is meant and we should trigger an action
-		if(packet->moduleId == moduleId)
-		{
-			if(packet->actionType == IoModuleActionResponseMessages::SET_PIN_CONFIG_RESULT)
-			{
-				uart("MODULE", "{\"nodeId\":%u,\"type\":\"set_pin_config_result\",\"module\":%u,", packet->header.sender, packet->moduleId);
-				uart("MODULE",  "\"requestHandle\":%u,\"code\":%u}" SEP, packet->requestHandle, 0);
-			}
-			else if(packet->actionType == IoModuleActionResponseMessages::SET_LED_RESPONSE)
-			{
-				uart("MODULE", "{\"nodeId\":%u,\"type\":\"set_led_result\",\"module\":%u,", packet->header.sender, packet->moduleId);
-				uart("MODULE",  "\"requestHandle\":%u,\"code\":%u}" SEP, packet->requestHandle, 0);
-			}
-		}
-	}
 }
 

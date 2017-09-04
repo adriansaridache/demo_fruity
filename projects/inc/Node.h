@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <types.h>
 #include <adv_packets.h>
 #include <conn_packets.h>
-#include <LedWrapper.h>
 #include <ConnectionManager.h>
 #include <Connection.h>
 #include <SimpleBuffer.h>
@@ -127,10 +126,6 @@ class Node:
 		clusterID clusterId;
 
 		u32 radioActiveCount;
-
-		u8 ledBlinkPosition;
-
-		ledMode currentLedMode;
 
 		bool outputRawData;
 

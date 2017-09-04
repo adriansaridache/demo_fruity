@@ -46,14 +46,12 @@ class IoModule: public Module
 			SET_PIN_CONFIG = 0,
 			GET_PIN_CONFIG = 1,
 			GET_PIN_LEVEL = 2,
-			SET_LED = 3 //used to trigger a signaling led
 		};
 
 		enum IoModuleActionResponseMessages{
 			SET_PIN_CONFIG_RESULT = 0,
 			PIN_CONFIG = 1,
 			PIN_LEVEL = 2,
-			SET_LED_RESPONSE = 3
 		};
 
 		//Combines a pin and its config
@@ -72,13 +70,6 @@ class IoModule: public Module
 		//####### Module messages (these need to be packed)
 		#pragma pack(push)
 		#pragma pack(1)
-
-			#define SIZEOF_IO_MODULE_SET_LED_MESSAGE 1
-			typedef struct
-			{
-				u8 ledMode;
-
-			}IoModuleSetLedMessage;
 
 		#pragma pack(pop)
 		//####### Module messages end

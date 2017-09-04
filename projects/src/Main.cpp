@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Module.h>
 #include <Utility.h>
 #include <types.h>
-#include <TestBattery.h>
 #include <Config.h>
 #include <NewStorage.h>
 
@@ -84,6 +83,8 @@ int main(void)
 
 	//Detect the used board at runtime or select one at compile time in the config
 //	SET_BOARD();
+
+    //Initializing the RTT module for communication with the RTT Viewer, without the need of UART communication
     SEGGER_RTT_Init();
 	//Initialize the UART Terminal
 	Terminal::Init();
@@ -153,10 +154,6 @@ int main(void)
 
 	//Start Timers
 	initTimers();
-
-	//TestBattery* testBattery = new TestBattery();
-	//testBattery->startTesting();
-	//testBattery->scanAt50Percent();
 
 	pendingSysEvent = 0;
 

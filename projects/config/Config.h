@@ -258,16 +258,16 @@ class Conf
 #include <board_ars101693.h>
 #include <board_ars101694.h>
 
-#define SET_BOARD() do{					\
-		SET_PCA10031_BOARD_IF_FIT(Config->boardType);		\
-		SET_PCA10036_BOARD_IF_FIT(Config->boardType);		\
-		SET_PCA10040_BOARD_IF_FIT(Config->boardType);		\
-		SET_ARS100748_BOARD_IF_FIT(Config->boardType);	\
-		SET_ARS100748_CABLE_BOARD_IF_FIT(Config->boardType);	\
-		SET_ARS100748_ADAPTER_BOARD_IF_FIT(Config->boardType);	\
-		SET_ARS101693_BOARD_IF_FIT(Config->boardType);	\
-		SET_ARS101694_BOARD_IF_FIT(Config->boardType);	\
-}while(0);
+//#define SET_BOARD() do{					\
+//		SET_PCA10031_BOARD_IF_FIT(Config->boardType);		\
+//		SET_PCA10036_BOARD_IF_FIT(Config->boardType);		\
+//		SET_PCA10040_BOARD_IF_FIT(Config->boardType);		\
+//		SET_ARS100748_BOARD_IF_FIT(Config->boardType);	\
+//		SET_ARS100748_CABLE_BOARD_IF_FIT(Config->boardType);	\
+//		SET_ARS100748_ADAPTER_BOARD_IF_FIT(Config->boardType);	\
+//		SET_ARS101693_BOARD_IF_FIT(Config->boardType);	\
+//		SET_ARS101694_BOARD_IF_FIT(Config->boardType);	\
+//}while(0);
 
 //Each of the Connections has a buffer for outgoing packets, this is its size in bytes
 #define PACKET_SEND_BUFFER_SIZE 600
@@ -305,7 +305,7 @@ class Conf
 #define TRACE_BUFFER_SIZE 500
 
 //Define to enable terminal in-/output through UART
-#define USE_UART
+//#define USE_UART
 //Use the SEGGER RTT protocol for in and output
 //In J-Link RTT view, set line ending to CR and send input on enter, echo input to off
 //#define USE_SEGGER_RTT
@@ -355,8 +355,8 @@ enum moduleID{
 #define ACTIVATE_STATUS_REPORTER_MODULE
 //#define ACTIVATE_DFU_MODULE
 #define ACTIVATE_ENROLLMENT_MODULE
-#define ACTIVATE_IO_MODULE
-#define ACTIVATE_DEBUG_MODULE
+//#define ACTIVATE_IO_MODULE
+//#define ACTIVATE_DEBUG_MODULE
 
 /*############ Stuff for DFU ################*/
 //This is where the bootloader settings are saved

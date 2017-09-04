@@ -190,13 +190,13 @@ class Conf
 		u8 deviceConfigOrigin = RANDOM_CONFIG;
 
 		//Set a default boardId for NRF51 and NRF52 in case no other data is available
-#if defined(NRF51)
+//#if defined(NRF51)
 		u32 boardType = PCA_10028;
-#elif defined(NRF52)
-		u32 boardType = PCA_10040;
-#else
-#error "Specify SoC model (NR51 or NRF52)"
-#endif
+//#elif defined(NRF52)
+//		u32 boardType = PCA_10040;
+//#else
+//#error "Specify SoC model (NR51 or NRF52)"
+//#endif
 
 		char serialNumber[6];
 		u32 serialNumberIndex;
@@ -327,7 +327,6 @@ class Conf
 #define MESH_SERVICE_INITIAL_CHARACTERISTIC_VALUE {1,2,3}
 #define MESH_SERVICE_CHARACTERISTIC_DESCRIPTOR_UUID  0x1525
 
-
 /*############ MODULES ################*/
 //The module ids are used to identify a module over the network
 //Numbers below 150 are standard defined, numbers obove this range are free to use for custom modules
@@ -341,7 +340,6 @@ enum moduleID{
 	ENROLLMENT_MODULE_ID=5,
 	IO_MODULE_ID=6,
 	DEBUG_MODULE_ID=7,
-
 	//Custom modules
 	MY_CUSTOM_MODULE_ID=150,
 

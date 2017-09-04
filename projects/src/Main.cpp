@@ -148,9 +148,7 @@ int main(void)
 
 	//node->Stop();
 
-
 	//new Testing();
-
 
 	//Start Timers
 	initTimers();

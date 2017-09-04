@@ -235,12 +235,6 @@ void EnrollmentModule::ConnectionPacketReceivedEventHandler(connectionPacket* in
 
 				node->SaveConfiguration();
 
-				//Switch to green LED, user must now reboot the node
-				node->currentLedMode = ledMode::LED_MODE_OFF;
-				LedRed->Off();
-				LedGreen->On();
-				LedBlue->Off();
-
 				SendEnrollmentResponse(NODE_ID_BROADCAST, enrollmentMethods::BY_NODE_ID, packet->requestHandle, 0, (u8*)Config->serialNumber);
 
 			}
@@ -261,12 +255,6 @@ void EnrollmentModule::ConnectionPacketReceivedEventHandler(connectionPacket* in
 					memcpy(&node->persistentConfig.networkKey, data->networkKey, 16);
 
 					node->SaveConfiguration();
-
-					//Switch to green LED, user must now reboot the node
-					node->currentLedMode = ledMode::LED_MODE_OFF;
-					LedRed->Off();
-					LedGreen->On();
-					LedBlue->Off();
 
 
 					SendEnrollmentResponse(NODE_ID_BROADCAST, enrollmentMethods::BY_CHIP_ID, packet->requestHandle, 0, (u8*)Config->serialNumber);
@@ -291,11 +279,6 @@ void EnrollmentModule::ConnectionPacketReceivedEventHandler(connectionPacket* in
 
 					node->SaveConfiguration();
 
-					//Switch to green LED, user must now reboot the node
-					node->currentLedMode = ledMode::LED_MODE_OFF;
-					LedRed->On();
-					LedGreen->On();
-					LedBlue->On();
 
 					//FIXME: Should only send response after enrollment is saved
 					SendEnrollmentResponse(NODE_ID_BROADCAST, enrollmentMethods::BY_SERIAL, packet->requestHandle, 0, (u8*)Config->serialNumber);

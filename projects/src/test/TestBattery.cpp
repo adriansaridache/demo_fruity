@@ -35,8 +35,6 @@ ConnectionManager* TestBattery::cm;
 
 u16 deactivateDiscoveryAfterDs = 0;
 
-
-
 TestBattery::TestBattery()
 {
 
@@ -47,21 +45,12 @@ void TestBattery::TimerHandler(){
 
 		node->ChangeState(discoveryState::DISCOVERY_OFF);
 		node->DisableStateMachine(true);
-		node->currentLedMode = ledMode::LED_MODE_OFF;
-
-		LedRed->Off();
-		LedGreen->Off();
-		LedBlue->Off();
 	}
 }
 
 void TestBattery::prepareTesting()
 {
-
 	Logger::getInstance().logEverything = true;
-
-
-
 }
 
 void TestBattery::startTesting()
@@ -80,12 +69,9 @@ void TestBattery::startTesting()
 	node = Node::getInstance();
 	cm = ConnectionManager::getInstance();
 
-	node->currentLedMode = ledMode::LED_MODE_OFF;
-
 	//deactiveate node
 	node->ChangeState(discoveryState::DISCOVERY_OFF);
 	node->DisableStateMachine(true);
-
 
 }
 
@@ -176,8 +162,6 @@ void TestBattery::meshWith30msConnAndDiscoveryOff()
 		node->DisableStateMachine(false);
 		node->ChangeState(discoveryState::DISCOVERY_HIGH);
 
-		//Disable discovery after 20 seconds
-		node->currentLedMode = ledMode::LED_MODE_CONNECTIONS;
 		deactivateDiscoveryAfterDs = SEC_TO_DS(20);
 }
 
@@ -198,8 +182,6 @@ void TestBattery::meshWith100msConnAndDiscoveryOff()
 	node->DisableStateMachine(false);
 	node->ChangeState(discoveryState::DISCOVERY_HIGH);
 
-	//Disable discovery after 20 seconds
-	node->currentLedMode = ledMode::LED_MODE_CONNECTIONS;
 	deactivateDiscoveryAfterDs = SEC_TO_DS(20);
 }
 
@@ -221,8 +203,6 @@ void TestBattery::meshWith500msConnAndDiscoveryOff()
 	node->DisableStateMachine(false);
 	node->ChangeState(discoveryState::DISCOVERY_HIGH);
 
-	//Disable discovery after 20 seconds
-	node->currentLedMode = ledMode::LED_MODE_CONNECTIONS;
 	deactivateDiscoveryAfterDs = SEC_TO_DS(20);
 }
 

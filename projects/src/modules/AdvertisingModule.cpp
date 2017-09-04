@@ -75,8 +75,6 @@ void AdvertisingModule::ConfigurationLoadedHandler()
 	//Start the Module...
 	logt("ADVMOD", "Config set, txPower %d");
 
-
-
 }
 
 void AdvertisingModule::TimerEventHandler(u16 passedTimeDs, u32 appTimerDs)
@@ -168,8 +166,6 @@ void AdvertisingModule::NodeStateChangedHandler(discoveryState newState)
 			}
 
 
-
-
 			char strbuffer[200];
 			Logger::getInstance().convertBufferToHexString(buffer, 31, strbuffer, 200);
 
@@ -188,13 +184,10 @@ void AdvertisingModule::NodeStateChangedHandler(discoveryState newState)
 				logt("ADVMOD", "Adv msg corrupt");
 			}
 
-
 			char buffer[200];
 			Logger::getInstance().convertBufferToHexString((u8*)configuration.messageData[0].messageData, 31, buffer, 200);
 
 			logt("ADVMOD", "ADV set to %s", buffer);
-
-
 
 			if(configuration.messageData[0].forceNonConnectable)
 			{
@@ -218,10 +211,6 @@ void AdvertisingModule::ButtonHandler(u8 buttonId, u32 holdTimeDs)
 	if(buttonId == 0 && holdTimeDs > SEC_TO_DS(3)){
 		logt("ADVMOD", "Asset mode activated");
 		assetMode = 1;
-		LedRed->On();
-		LedGreen->On();
-		LedBlue->On();
-		node->currentLedMode = ledMode::LED_MODE_ASSET;
 		cm->ForceDisconnectOtherConnections(NULL);
 	}
 }

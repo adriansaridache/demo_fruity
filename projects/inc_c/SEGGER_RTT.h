@@ -69,6 +69,12 @@ Purpose : Implementation of SEGGER real-time terminal which allows
 #define RTT_CTRL_BG_BRIGHT_CYAN       "[4;46m"
 #define RTT_CTRL_BG_BRIGHT_WHITE      "[4;47m"
 
+#define SEGGER_RTT_PRINTF(...) \
+do { \
+     char str[64];\
+     sprintf(str, __VA_ARGS__);\
+     SEGGER_RTT_WriteString(0, str);\
+ } while(0)
 
 /*********************************************************************
 *

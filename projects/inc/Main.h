@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C"{
 #include <ble.h>
 
-
+#include <SEGGER_RTT.h>
 #include <nrf_gpiote.h>
 #include <nrf_drv_gpiote.h>
 }
@@ -70,8 +70,5 @@ extern "C"{
 	void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name);
 	void sys_evt_dispatch(uint32_t sys_evt);
 }
-
-
-
 
 /** @} */

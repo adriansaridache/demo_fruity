@@ -8,7 +8,7 @@ VERBOSE      ?= 0
 
 
 CPU := cortex-m0
-LINKER_SCRIPT := linker/gcc_nrf51_s130_16kb.ld
+LINKER_SCRIPT := linker/gcc_nrf51_s130_32kb.ld
 
 NRF5_SDK_PATH ?= C:/nrf/sdk/nrf_sdk_11_0
 COMPONENTS     = $(NRF5_SDK_PATH)/components
@@ -22,8 +22,8 @@ INC_PATHS += -I$(COMPONENTS)/softdevice/s130/headers/nrf51
 
 SOFTDEVICE_PATH = $(COMPONENTS)/softdevice/s130/hex/s130_nrf51_2.0.0_softdevice.hex
 
-HEAP_SIZE = 1024
-STACK_SIZE = 1024
+HEAP_SIZE = 2048
+STACK_SIZE = 2048
 
 SERIAL_DEVICE ?= /dev/ttyCOM4  # FIXME Use proper matching for OSX compatiblity
 

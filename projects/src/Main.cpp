@@ -49,6 +49,7 @@ extern "C"{
 #include <nrf_sdm.h>
 #include <nrf_delay.h>
 #include <nrf_nvic.h>
+#include <SEGGER_RTT.h>
 }
 
 //A global buffer for the current event, which must be 4-byte aligned
@@ -79,7 +80,7 @@ struct mallinfo minfo;
 int main(void)
 {
 	u32 err;
-
+    SEGGER_RTT_Init();
 	//Detect the used board at runtime or select one at compile time in the config
 	//SET_BOARD();
 
@@ -156,7 +157,7 @@ int main(void)
 
 		//Check if there is input on uart
 		Terminal::CheckAndProcessLine();
-
+        SEGGER_RTT_PRINTF("Here main!\n\r");
 		do
 		{
 			minfo = mallinfo();

@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <GATTController.h>
 #include <Logger.h>
 #include <Testing.h>
-#include <LedWrapper.h>
 #include <Module.h>
 #include <Utility.h>
 #include <types.h>
@@ -51,6 +50,7 @@ extern "C"{
 #include <nrf_sdm.h>
 #include <nrf_delay.h>
 #include <nrf_nvic.h>
+#include <SEGGER_RTT.h>
 }
 
 //A global buffer for the current event, which must be 4-byte aligned
@@ -84,7 +84,7 @@ int main(void)
 
 	//Detect the used board at runtime or select one at compile time in the config
 //	SET_BOARD();
-
+    SEGGER_RTT_Init();
 	//Initialize the UART Terminal
 	Terminal::Init();
 
@@ -166,7 +166,7 @@ int main(void)
 
 		//Check if there is input on uart
 		Terminal::CheckAndProcessLine();
-
+        SEGGER_RTT_PRINTF("Main!\n\r");
 		do
 		{
 			//Fetch the event

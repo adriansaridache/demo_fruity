@@ -84,7 +84,7 @@ do { \
     strcat(stringToPass, tag); \
     strcat(stringToPass, message); \
     SEGGER_RTT_TERMINAL_PRINTF(stringToPass, ##__VA_ARGS__); \
-}while(0) 
+}while(0)
 
 
 /*********************************************************************

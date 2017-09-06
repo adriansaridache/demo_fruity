@@ -88,8 +88,9 @@ int main(void)
     //Initializing the RTT module for communication with the RTT Viewer, without the need of UART communication
     SEGGER_RTT_Init();
 	//Initialize the UART Terminal
-    SEGGER_RTT_TERMINAL_PRINTF("Main.\n\r");
-//	Terminal::Init();
+    SEGGER_RTT_TERMINAL_PRINTF("Main");
+
+	Terminal::Init();
 
 	//Testing* testing = new Testing();
 
@@ -98,11 +99,11 @@ int main(void)
 //	uart("ERROR", "{\"version\":2}" SEP);
 
 	//Enable logging for some interesting log tags
-	Logger::getInstance().enableTag("NODE");
-	Logger::getInstance().enableTag("STORAGE");
-	Logger::getInstance().enableTag("DATA");
-	Logger::getInstance().enableTag("SEC");
-	Logger::getInstance().enableTag("HANDSHAKE");
+//	Logger::getInstance().enableTag("NODE");
+//	Logger::getInstance().enableTag("STORAGE");
+//	Logger::getInstance().enableTag("DATA");
+//	Logger::getInstance().enableTag("SEC");
+//	Logger::getInstance().enableTag("HANDSHAKE");
 //	Logger::getInstance().enableTag("DISCOVERY");
 //	Logger::getInstance().enableTag("CONN");
 //	Logger::getInstance().enableTag("STATES");
@@ -112,7 +113,6 @@ int main(void)
 //	Logger::getInstance().enableTag("CONN");
 //	Logger::getInstance().enableTag("CONN_DATA");
 //	Logger::getInstance().enableTag("STATES");
-
 	//Initialize GPIOTE for Buttons
 	initGpioteButtons();
 

@@ -146,9 +146,7 @@ public:
 
 #define trace(message, ...) Logger::getInstance().logTag_f(Logger::TRACE, __FILE_S__, __LINE__, NULL, message, ##__VA_ARGS__)
 #define log(message, ...) Logger::getInstance().log_f(true, __FILE_S__, __LINE__, message, ##__VA_ARGS__)
-
 #define logt(tag, message, ...) Logger::getInstance().logTag_f(Logger::LOG_LINE, __FILE_S__, __LINE__, tag, message, ##__VA_ARGS__)
-//#error "I got here"
 //#define logt(tag, message, ...) TO_SEGGER_RTT_PRINTF(tag, message, ##__VA_ARGS__)
 
 #else //ENABLE_LOGGING
@@ -156,7 +154,6 @@ public:
 #define trace(...) do{}while(0)
 #define log(...) do{}while(0)
 //#define logt(...) do{}while(0)
-
 #define logt(tag, message, ...) TO_SEGGER_RTT_PRINTF(tag, message, ##__VA_ARGS__)
 
 #endif //ENABLE_LOGGING

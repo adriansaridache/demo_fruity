@@ -73,7 +73,7 @@ Purpose : Implementation of SEGGER real-time terminal which allows
 
 #define SEGGER_RTT_TERMINAL_PRINTF(...) \
 do { \
-    char str[90];\
+    char str[64];\
     sprintf(str, __VA_ARGS__);\
     SEGGER_RTT_WriteString(0, str);\
     SEGGER_RTT_WriteString(0, "\n\r");\
@@ -82,9 +82,10 @@ do { \
 #define TO_SEGGER_RTT_PRINTF(tag, message, ...) \
 do { \
     char stringToPass[90]; \
-    strcpy(stringToPass, tag); \
-    strcat(stringToPass, message); \
-    SEGGER_RTT_TERMINAL_PRINTF(stringToPass, ##__VA_ARGS__); \
+    SEGGER_RTT_WriteString(0, tag); \
+    sprintf(stringToPass, message, ##__VA_ARGS__); \
+    SEGGER_RTT_WriteString(0, stringToPass); \
+    SEGGER_RTT_WriteString(0, "\n\r");\
 }while(0)
 
 

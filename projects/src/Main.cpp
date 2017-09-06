@@ -88,7 +88,7 @@ int main(void)
     //Initializing the RTT module for communication with the RTT Viewer, without the need of UART communication
     SEGGER_RTT_Init();
 	//Initialize the UART Terminal
-    SEGGER_RTT_TERMINAL_PRINTF("Entering main.");
+    SEGGER_RTT_TERMINAL_PRINTF("Entering main.\n\n\n\n\r");
 
 //	Terminal::Init();
 
@@ -161,8 +161,8 @@ int main(void)
 	{
 		u32 err = NRF_ERROR_NOT_FOUND;
 		//Check if there is input on uart
-		Terminal::CheckAndProcessLine();
-        SEGGER_RTT_TERMINAL_PRINTF("Main inside while(true).\n\r");
+//		Terminal::CheckAndProcessLine();
+        SEGGER_RTT_TERMINAL_PRINTF("Main inside while(true)");
 		do
 		{
 			//Fetch the event
@@ -484,7 +484,7 @@ void initTimers(void){
 // ######################### UART
 void dispatchUartInterrupt(){
 #ifdef USE_UART
-	Terminal::UartInterruptHandler();
+//	Terminal::UartInterruptHandler();
 #endif
 }
 

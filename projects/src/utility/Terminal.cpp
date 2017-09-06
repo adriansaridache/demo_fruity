@@ -202,7 +202,6 @@ void Terminal::ProcessLine(char* line)
 #define ________________UART___________________
 #ifdef USE_UART
 
-
 void Terminal::UartDisable()
 {
 	//Disable UART interrupt
@@ -602,10 +601,6 @@ void Terminal::SeggerRttPutChar(char character)
 	SEGGER_RTT_Write(0, (const char*)buffer, 1);
 }
 #endif
-
-
-
-
 
 /*############## Terminal Listener ####################*/
 #define ________________TERMINAL_LISTENER___________________

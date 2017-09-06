@@ -37,6 +37,7 @@ extern "C"
 #include <pstorage.h>
 #include <stdarg.h>
 #include <app_timer.h>
+#include <SEGGER_RTT.h>
 }
 
 using namespace std;

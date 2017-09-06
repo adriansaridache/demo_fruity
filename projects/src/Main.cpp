@@ -70,12 +70,13 @@ static u16 sizeOfCurrentEvent = sizeOfEvent;
 #define APP_TIMER_MAX_TIMERS      1 //Maximum number of simultaneously created timers (2 + BSP_APP_TIMERS_NUMBER)
 #define APP_TIMER_OP_QUEUE_SIZE   1 //Size of timer operation queues
 
-
 //Reference to Node
 Node* node = NULL;
 
 //Put the firmware version in a special section right after the initialization vector
 uint32_t app_version __attribute__((section(".Version"), used)) = FM_VERSION;
+
+
 
 int main(void)
 {
@@ -87,13 +88,14 @@ int main(void)
     //Initializing the RTT module for communication with the RTT Viewer, without the need of UART communication
     SEGGER_RTT_Init();
 	//Initialize the UART Terminal
-	Terminal::Init();
+    SEGGER_RTT_TERMINAL_PRINTF("Main.\n\r");
+//	Terminal::Init();
 
 	//Testing* testing = new Testing();
 
 	//testing->testPacketQueue();
 
-	uart("ERROR", "{\"version\":2}" SEP);
+//	uart("ERROR", "{\"version\":2}" SEP);
 
 	//Enable logging for some interesting log tags
 	Logger::getInstance().enableTag("NODE");
@@ -154,14 +156,13 @@ int main(void)
 	initTimers();
 
 	pendingSysEvent = 0;
-
+    uint32_t counter = 0;
 	while (true)
 	{
 		u32 err = NRF_ERROR_NOT_FOUND;
-
 		//Check if there is input on uart
 		Terminal::CheckAndProcessLine();
-        SEGGER_RTT_PRINTF("Main!\n\r");
+        SEGGER_RTT_TERMINAL_PRINTF("Main inside while(true).\n\r");
 		do
 		{
 			//Fetch the event
@@ -171,7 +172,7 @@ int main(void)
 			//Handle ble event event
 			if (err == NRF_SUCCESS)
 			{
-				//logt("EVENT", "--- EVENT_HANDLER %d -----", currentEvent->header.evt_id);
+				logt("EVENT", "--- EVENT_HANDLER %d -----", currentEvent->header.evt_id);
 				bleDispatchEventHandler(currentEvent);
 			}
 			//No more events available
@@ -226,9 +227,9 @@ int main(void)
 }
 
 void detectBoardAndSetConfig(){
-#ifdef DETECT_AND_SET_ARS100748_BOARD
-	DETECT_AND_SET_ARS100748_BOARD();
-#endif
+//#ifdef DETECT_AND_SET_ARS100748_BOARD
+//	DETECT_AND_SET_ARS100748_BOARD();
+//#endif
 
 //Could add other detect methods here...
 }

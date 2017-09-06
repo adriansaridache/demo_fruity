@@ -23,6 +23,8 @@ Purpose : Implementation of SEGGER real-time terminal which allows
 *
 **********************************************************************
 */
+#include <string.h>
+#include <malloc.h>
 #define SEGGER_RTT_MODE_MASK                  (3 << 0)
 
 #define SEGGER_RTT_MODE_NO_BLOCK_SKIP         (0)
@@ -69,12 +71,21 @@ Purpose : Implementation of SEGGER real-time terminal which allows
 #define RTT_CTRL_BG_BRIGHT_CYAN       "[4;46m"
 #define RTT_CTRL_BG_BRIGHT_WHITE      "[4;47m"
 
-#define SEGGER_RTT_PRINTF(...) \
+#define SEGGER_RTT_TERMINAL_PRINTF(...) \
 do { \
-     char str[64];\
-     sprintf(str, __VA_ARGS__);\
-     SEGGER_RTT_WriteString(0, str);\
- } while(0)
+    char str[64];\
+    sprintf(str, __VA_ARGS__);\
+    SEGGER_RTT_WriteString(0, str);\
+} while(0)
+
+#define TO_SEGGER_RTT_PRINTF(tag, message, ...) \
+do { \
+    char stringToPass[64]; \
+    strcat(stringToPass, tag); \
+    strcat(stringToPass, message); \
+    SEGGER_RTT_TERMINAL_PRINTF(stringToPass, ##__VA_ARGS__); \
+}while(0) 
+
 
 /*********************************************************************
 *

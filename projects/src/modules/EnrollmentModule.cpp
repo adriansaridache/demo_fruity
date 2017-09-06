@@ -224,7 +224,7 @@ void EnrollmentModule::ConnectionPacketReceivedEventHandler(connectionPacket* in
 			{
 				EnrollmentModuleSetEnrollmentByNodeIdMessage* data = (EnrollmentModuleSetEnrollmentByNodeIdMessage*)packet->data;
 
-				logt("ENROLLMOD", "Enrollment (by nodeId) received nodeId:%u, networkid:%u", data->nodeId, data->networkId);
+				logt("ENROLLMOD", "Enrollment(nodeId) received nodeId:%u, networkid:%u", data->nodeId, data->networkId);
 
 				//Stop all meshing
 				node->Stop();

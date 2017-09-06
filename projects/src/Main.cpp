@@ -88,9 +88,9 @@ int main(void)
     //Initializing the RTT module for communication with the RTT Viewer, without the need of UART communication
     SEGGER_RTT_Init();
 	//Initialize the UART Terminal
-    SEGGER_RTT_TERMINAL_PRINTF("Main");
+    SEGGER_RTT_TERMINAL_PRINTF("Entering main.");
 
-	Terminal::Init();
+//	Terminal::Init();
 
 	//Testing* testing = new Testing();
 
@@ -172,7 +172,7 @@ int main(void)
 			//Handle ble event event
 			if (err == NRF_SUCCESS)
 			{
-				logt("EVENT", "--- EVENT_HANDLER %d -----", currentEvent->header.evt_id);
+				logt("EVENT", "--- EVENT_HANDLER %d ---", currentEvent->header.evt_id);
 				bleDispatchEventHandler(currentEvent);
 			}
 			//No more events available
@@ -288,7 +288,7 @@ void bleInit(void){
 		}
 	} else if(err == NRF_ERROR_NO_MEM) {
 		/* Not enough memory for the SoftDevice. Use output value in linker script */
-		logt("ERROR", "Fatal: Not enough memory for the selected configuration. Required:0x%x", app_ram_base);
+		logt("ERROR", "Fatal:Not enough memory current configuration. Required:0x%x", app_ram_base);
     } else {
     	APP_ERROR_CHECK(err); //OK
     }

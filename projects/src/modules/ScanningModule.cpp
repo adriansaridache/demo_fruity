@@ -136,13 +136,13 @@ void ScanningModule::SendReport()
 	u32 totalRSSI = computeTotalRSSI();
 
 	// Log the address table
-	logt("SCANMOD", "GAP address  |  Mean rssi  |  Total messages");
+	logt("SCANMOD", "GAP address | Mean rssi | Total messages");
 	for (int i = 0; i < addressPointer; i++)
 	{
 		uint8_t* address = addresses[i];
 		u32 meanRSSI = totalRSSIsPerAddress[i] / totalMessagesPerAdress[i];
 		u32 totalMessages = totalMessagesPerAdress[i];
-		logt("SCANMOD", "0x%x  |  %d  |  %d", address, meanRSSI, totalMessages);
+		logt("SCANMOD", "0x%x | %d | %d", address, meanRSSI, totalMessages);
 	}
 
 	logt("SCANMOD", "Total devices:%d, avgRSSI:%d", totalDevices, totalRSSI);
